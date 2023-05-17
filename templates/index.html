@@ -1,0 +1,8 @@
+<h1>Moneta</h1>
+{% if nome %}
+<p>Usuário logado: {{ nome }}</p>
+<p>Clique <a href="signin/">aqui</a> para ir a página de usuário</p>
+{% else %}
+<p>Bem vindo à página inicial!</p>
+<p>Clique <a href="signin/">aqui</a> para ir a página de login</p>
+{% endif %}

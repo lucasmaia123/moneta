@@ -1,0 +1,35 @@
+{% if msg %}
+    <script>
+        alert('{{msg}}');
+        location.href="{% url 'users:check' %}"
+    </script>
+{% endif %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Check Progress</title>
+        <style>
+            div{
+                position: absolute;
+                right: 50px;
+                top: 5px;
+            }
+        </style>
+    </head>
+<body>
+<!-- No click, chama a função logout() -->
+<div>
+    <button type="button" onclick="location.href=`{% url 'users:logout' %}`">Logout</button>
+    <button type="button" onclick="location.href=`{% url 'users:login' %}`">Homepage</button>
+</div>
+<h1>Title: {{t}}</h1><br>
+Description: {{d}}<br>
+{% if i %}
+Image:<br>
+<img src="{{i}}" width="50%" height="50%">
+{% endif %}
+<br>
+<button type="button" onclick="location.href='/delete/{{dt}}'">Delete post</button>
+</body>
+</html>

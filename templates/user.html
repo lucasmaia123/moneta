@@ -1,0 +1,40 @@
+{% if msg %}
+<script>
+    alert('{{ msg }}');
+</script>
+{% endif %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Create Report</title>
+        <style>
+            div{
+                position: absolute;
+                right: 50px;
+                top: 5px;
+            }
+        </style>
+    </head>
+<body>
+<h1>Welcome {{ email }}</h1>
+<div>
+<!-- No click chama a função logout() -->
+<div>
+    <button type="button" onclick="logout()">Logout</button>
+    <button type="button" onclick="location.href=`{% url 'users:login' %}`">Homepage</button>
+</div>
+<script type="text/javascript">
+    function logout(){
+        // Na chamada muda o endereço do documento para o urlpattern de nome 'logout'
+        document.location.href = "{% url 'users:logout' %}"
+    }
+</script> 
+</div>
+<br>
+<!-- No click redireciona para o elemento em urlpatterns com nome 'create' -->
+<button type="button" onclick="location.href= `{% url 'users:create' %}`">Create Report</button>
+<!-- No click redireciona para o elemento em urlpatterns com nome 'check' -->
+<button type="button" onclick="location.href= `{% url 'users:check' %}`">Check Reports</button>
+</body>
+</html>
