@@ -123,12 +123,12 @@ def create_post(request):
     date = timezone.now().strftime("%Y-%m-%d %H:%M:%S")
     print(date)
     user_id = authe.get_account_info(idToken)
+    email = user_id['users'][0]['email']
     user_id = user_id['users'][0]['localId']
-    print(user_id)
 
     # Insere os dados no Firebase
     database.child('users').child(user_id).child('reports').child(date).set(data)
-    return render(request, "user.html")
+    return render(request, "user.html", context={'email': email})
 
 def check(request):
     try:

@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 import pyrebase
+import yfinance as yf
 
 config = {
     "apiKey": "AIzaSyBgU1f7WYgfl5RjUXJQefju6bzwug9MqgI",
@@ -18,12 +19,67 @@ firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 database = firebase.database()
 
+@api_view(['GET', 'POST'])
+def stock_info(request):
+    if request.method == 'POST':
+        data = request.data
+        tickers = data['tickers']
+        period = data['period']
+        stocks = []
+        for ticker in tickers:
+            try:
+                stock = yf.Ticker(ticker).history(period).values
+                stocks.append({ticker:stock})
+            except:
+                print(f"Failed to collect data of {ticker}\n")
+        return Response({"Stocks": stocks})
+    else:
+        message = '''Use POST para mandar as siglas das empresas em 'tickers' no formato de lista 
+        e o periodo da coleta em 'period' na forma '<int>mo' para o número de meses '''
+        return Response({'instruções': message})
+
+@api_view(['GET', 'POST'])
+def login_user(request):
+    if request.method == 'POST':
+        data = request.data
+        email = data['email']
+        password = data['password']
+        try:
+            user = authe.sign_in_with_email_and_password(email, password)
+            return Response([status.HTTP_202_ACCEPTED, {"user": user}])
+        except:
+            error = "Credenciais invalidas!"
+            return Response([status.HTTP_406_NOT_ACCEPTABLE, {'error': error}])
+    else:
+        message = "Use POST para mandar o email e senha na forma 'email' e 'password'"
+        return Response({'instruções': message})
+
+@api_view(['GET', 'POST'])
+def signup(request):
+    if request.method == 'POST':
+        data = request.data
+        email = data['email']
+        password = data['password']
+        try:
+            user = authe.create_user_with_email_and_password(email, password)
+            return Response([status.HTTP_201_CREATED, {'user': user}])
+        except:
+            error = "Algo deu errado, verifique se a senha possui pelo menos 6 caracteres ou se o usuário já existe!"
+            return Response([status.HTTP_406_NOT_ACCEPTABLE, {"error": error}])
+    else:
+        message = "Use POST para mandar o email e senha na forma 'email' e 'password'"
+        return Response({'instruções': message})
+
+
 @api_view(['GET'])
 def index(request):
-    data = {"Check users names": "/users/",
-            "Check all notes or specific note": "/notes/<id>",
-            "Post a new note": "/post_note/",
-            "Delete a note": "/delete/<id>"
+    data = {"Checar nomes de usuários": "users/",
+            "Logar em uma conta": "login/",
+            "Criar uma conta": "signup/",
+            "Pegar dados do mercado de ações": "stock/",
+            "Checar uma ou varias anotações": "notes/<id>/",
+            "Criar uma anotação": "post_note/",
+            "Deletar uma anotação": "delete/<id>/"
         }
     return Response({"Add the suffix to the URL": data})
 
