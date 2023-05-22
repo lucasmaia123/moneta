@@ -28,7 +28,7 @@ def stock_info(request):
         stocks = []
         for ticker in tickers:
             try:
-                stock = yf.Ticker(ticker).history(period).values
+                stock = yf.Ticker(ticker).history(period)
                 stocks.append({ticker:stock})
             except:
                 print(f"Failed to collect data of {ticker}\n")
