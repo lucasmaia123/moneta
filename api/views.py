@@ -24,18 +24,19 @@ def stock_info(request):
     if request.method == 'POST':
         data = request.data
         tickers = data['tickers']
-        period = data['period']
+        s = data['start']
+        e = data['end']
         stocks = []
         for ticker in tickers:
             try:
-                stock = yf.Ticker(ticker).history(period)
+                stock = yf.Ticker(ticker).history(start=s, end=e)
                 stocks.append({ticker:stock})
             except:
                 print(f"Failed to collect data of {ticker}\n")
         return Response({"Stocks": stocks})
     else:
         message = '''Use POST para mandar as siglas das empresas em 'tickers' no formato de lista 
-        e o periodo da coleta em 'period' na forma '<int>mo' para o número de meses '''
+e o periodo da coleta em 'period' na forma '<int>mo' para o número de meses '''
         return Response({'instruções': message})
 
 @api_view(['GET', 'POST'])
@@ -73,15 +74,30 @@ def signup(request):
 
 @api_view(['GET'])
 def index(request):
-    data = {"Checar nomes de usuários": "users/",
-            "Logar em uma conta": "login/",
-            "Criar uma conta": "signup/",
-            "Pegar dados do mercado de ações": "stock/",
-            "Checar uma ou varias anotações": "notes/<id>/",
-            "Criar uma anotação": "post_note/",
-            "Deletar uma anotação": "delete/<id>/"
-        }
-    return Response({"Add the suffix to the URL": data})
+    data = [{
+        "endpoint": "users/",
+        "metodo": "GET",
+        "descrição": "Lista os nomes dos usuários cadastrados"
+    },
+    {
+        "endpoint": "login/",
+        "metodo": "POST",
+        "instrução": "Mande o email ['email'] e senha ['senha'] do usuário",
+        "descrição": "Loga  usuário com autenticação do Firebase"
+    },
+    {
+        "endpoint": "signup/",
+        "metodo": "POST",
+        "instrução": "Mande o email em 'email' e senha em 'senha'",
+        "descrição": "cria um usuário com autenticação do Firebase"
+    },
+    {
+        "endpoint": "stocks/",
+        "metodo": "POST",
+        "instrução": "Mande as credenciais em 'tickers' no formato de lista ['cred1', 'cred2'] e o começo da coleta em 'start' e o fim em 'end' no formato 'yyyy-mm-dd'",
+        "descrição": "Lista os valores das ações em determinado período"
+    }]
+    return Response({"Endpoints": data})
 
 @api_view(['GET'])
 def users(request):
