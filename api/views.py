@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 import pyrebase
+import datetime
 import yfinance as yf
 
 config = {
@@ -26,13 +27,22 @@ def stock_info(request):
         tickers = data['tickers']
         s = data['start']
         e = data['end']
-        stocks = []
+        stock_instance = []
+        stocks = {}
         for ticker in tickers:
             try:
-                stock = yf.Ticker(ticker).history(start=s, end=e)
-                stocks.append({ticker:stock})
+                stock = yf.Ticker(ticker).history(start=s, end=e)['Close']
             except:
                 print(f"Failed to collect data of {ticker}\n")
+                continue
+            data = stock.to_json()
+            data = eval(data)
+            for timestamp, value in data.items():
+                aux = {}
+                date = datetime.datetime.fromtimestamp(eval(timestamp)/1000)
+                aux[str(date.date())] = value
+                stock_instance.append(aux)
+            stocks[ticker] = stock_instance
         return Response({"Stocks": stocks})
     else:
         message = '''Use POST para mandar as siglas das empresas em 'tickers' no formato de lista 

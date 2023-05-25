@@ -9,7 +9,7 @@ urlpatterns = [
     path('notes/', views.notes),
     path('post_note/', views.post_note),
     path('delete/<str:id>/', views.post_delete),
-    path('stock/', views.stock_info),
+    path('stocks/', views.stock_info),
     path('login/', views.login_user),
     path('signup/', views.signup),
 ]
