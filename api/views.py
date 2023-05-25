@@ -27,7 +27,6 @@ def stock_info(request):
         tickers = data['tickers']
         s = data['start']
         e = data['end']
-        stock_instance = []
         stocks = {}
         for ticker in tickers:
             try:
@@ -37,12 +36,11 @@ def stock_info(request):
                 continue
             data = stock.to_json()
             data = eval(data)
+            aux = {}
             for timestamp, value in data.items():
-                aux = {}
                 date = datetime.datetime.fromtimestamp(eval(timestamp)/1000)
                 aux[str(date.date())] = value
-                stock_instance.append(aux)
-            stocks[ticker] = stock_instance
+            stocks[ticker] = aux
         return Response({"Stocks": stocks})
     else:
         message = '''Use POST para mandar as siglas das empresas em 'tickers' no formato de lista 
