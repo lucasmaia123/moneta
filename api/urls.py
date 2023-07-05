@@ -12,4 +12,5 @@ urlpatterns = [
     path('stocks/', views.stock_info),
     path('login/', views.login_user),
     path('signup/', views.signup),
+    path('predict/', views.stock_predict),
 ]

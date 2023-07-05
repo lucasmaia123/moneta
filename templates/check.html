@@ -13,8 +13,8 @@
 <body>
 <!-- No click, chama a função logout() -->
 <div>
-    <button type="button" onclick="location.href=`{% url 'users:logout' %}`">Logout</button>
-    <button type="button" onclick="location.href=`{% url 'users:login' %}`">Homepage</button>
+    <button type="button" onclick="location.href=`{% url 'exemplo:logout' %}`">Logout</button>
+    <button type="button" onclick="location.href=`{% url 'exemplo:login' %}`">Homepage</button>
 </div>
 <h1>{{name}} Reports</h1>
 {% for time, title in post_info %}

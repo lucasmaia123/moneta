@@ -18,7 +18,7 @@
 </head>
 <body>
     <div>
-        <button type="button" onclick="location.href=`{% url 'users:login' %}`">Homepage</button>
+        <button type="button" onclick="location.href=`{% url 'exemplo:login' %}`">Homepage</button>
     </div>
 <form method="post" action="/createuser/">
     {% csrf_token %}

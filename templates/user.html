@@ -19,22 +19,23 @@
 <body>
 <h1>Welcome {{ email }}</h1>
 <div>
-<!-- No click chama a função logout() -->
 <div>
+    <!-- No click chama a função logout() -->
     <button type="button" onclick="logout()">Logout</button>
-    <button type="button" onclick="location.href=`{% url 'users:login' %}`">Homepage</button>
+    <!-- Redireciona diretamente utilizando o url do Django -->
+    <button type="button" onclick="location.href=`{% url 'exemplo:login' %}`">Homepage</button>
 </div>
 <script type="text/javascript">
     function logout(){
         // Na chamada muda o endereço do documento para o urlpattern de nome 'logout'
-        document.location.href = "{% url 'users:logout' %}"
+        document.location.href = "{% url 'exemplo:logout' %}"
     }
 </script> 
 </div>
 <br>
 <!-- No click redireciona para o elemento em urlpatterns com nome 'create' -->
-<button type="button" onclick="location.href= `{% url 'users:create' %}`">Create Report</button>
+<button type="button" onclick="location.href= `{% url 'exemplo:create' %}`">Create Post</button>
 <!-- No click redireciona para o elemento em urlpatterns com nome 'check' -->
-<button type="button" onclick="location.href= `{% url 'users:check' %}`">Check Reports</button>
+<button type="button" onclick="location.href= `{% url 'exemplo:check' %}`">Check Posts</button>
 </body>
 </html>
