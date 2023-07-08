@@ -21,12 +21,12 @@ e digite 'python manage.py check'.
 
 Para instânciar o servidor na sua máquina local, direcione o prompt de comando para a pasta inicial no moneta e digite o comando 'python manage.py runserver'.
 
+O aplicativo deve estar rodando no domínio 127.0.0.1 ou localhost:8000, você pode acessar a api atraves do url localhost:8000/api/
+Nesse ponto apenas a sua máquina pode acessar o aplicativo, para jogá-lo na web você deve, ou instânciar o seu pc como um servidor web utilizando Apache ou nginx,
+ou utilizar um serviço de deployment online, como o Railway ou o Heroku.
+
 Sempre que quiser passar alguma imagem para o aplicativo vc usa o comando 'python manage.py collectstatic' para gerar os estáticos na pasta static.
 Já está feito para este exemplo.
-
-O aplicativo deve estar rodando no domínio 127.0.0.1 ou localhost:8000,
-nesse ponto apenas a sua máquina pode acessar o aplicativo, para jogá-lo na web você deve, ou instânciar o seu pc como um servidor web utilizando Apache ou nginx,
-ou utilizar um serviço de deployment online, como o Railway ou o Heroku.
 
 O aplicativo já está configurado para ser instanciado no Railway, basta colocá-lo no Github, criar uma conta no Railway e selecionar o repósitorio do aplicativo
 que o Railway já toma conta de tudo.
