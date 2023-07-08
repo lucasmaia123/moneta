@@ -6,7 +6,8 @@ import json
 from pathlib import Path
 import os
 
-# Configurações do Firebase na minha conta
+# Credenciais do Firebase na minha conta
+# Você pode acessar as credenciais da sua conta nas configurações do Firebase
 config = {
     "apiKey": "AIzaSyBgU1f7WYgfl5RjUXJQefju6bzwug9MqgI",
     "authDomain": "monetadb-a221d.firebaseapp.com",
@@ -24,7 +25,8 @@ database = firebase.database()
 # Bullshit necessário para guardar estáticos no Firebase
 storage = firebase.storage()
 dir = Path(__file__).resolve().parent.parent
-# Você vai ter que baixar as configurações da conta do Storage no Firebase para usar isso em outra conta
+# Você vai ter que baixar as configurações da sua conta no site do Firebase em 'gerar chave privada'
+# para fazer download do json com as credenciais
 dir = os.path.join(dir, "monetadb-a221d-firebase-adminsdk-dilx3-44c3d27db3.json")
 cred = credentials.Certificate(json.load(open(dir)))
 # Utilize a URL do seu Storage

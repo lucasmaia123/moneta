@@ -35,5 +35,8 @@ Se estiver utilizando uma versão do python diferente de 3.10.6, coloque a vers�
 
 No aplicativo segue as configurações para acessar o banco de dados do Firebase na minha conta, para utilizar um novo banco de dados, crie a sua conta no Firebase e
 coloque as suas credenciais no código no formato em que está nos arquivos 'views.py' nas pastas 'api' e 'exemplo'.
+Para utilizar o Storage na sua conta, você deve baixar uma nova chave no site do firebase em Configurações > Contas de serviço > Gerar nova chave privada.
+
+Obs: Se for disponibilizar o aplicativo para o público, lembre de esconder a secret key em settings.py, no site do Django tem instruções de como proceder.
 
 Mais informações em comentários no código.
